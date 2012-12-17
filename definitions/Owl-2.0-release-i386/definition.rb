@@ -30,6 +30,7 @@ Veewee::Definition.declare({
     'g<Delete>2<Enter>',			# Set gateway
     'na10.0.2.3<Enter>q',			# Set nameserver
     's<Enter>',					# Save network settings
+    'h' + '<Wait>' * 10,			# Install kernel headers
     'b/dev/hda<Enter>',				# kernel and bootloader
     'r<Left><Enter>', # + '<Wait>' * 30,		# Reboot
     #'root<Enter>Vagrant1234!<Enter>',		# Login
