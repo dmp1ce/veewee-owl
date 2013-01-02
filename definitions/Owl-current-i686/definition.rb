@@ -1,7 +1,7 @@
 Veewee::Definition.declare({
   :cpu_count => '1', :memory_size=> '256',
   :disk_size => '10140', :disk_format => 'VDI', :hostiocache => 'off',
-  :use_pae => 'on', :ioapic => 'on',
+  :use_pae => 'on',
   :os_type_id => 'Linux26',
   :iso_file => "Owl-current-20120818-i686.iso", :iso_src => "",
   :iso_md5 => "70391c152f0e3b3e46e2d8fc3f3e18a8", :iso_download_timeout => 1000,
@@ -29,16 +29,18 @@ Veewee::Definition.declare({
     'n<Enter>a<Enter>10.0.2.3<Enter>q<Enter>',			# Set nameserver
     's<Enter><Enter>',					# Save network settings
     # Copy kernel source for building Guest Additions
-    '!<Enter>tar -Jxvf /usr/src/world/sources/Owl/packages/kernel/linux-2.6.18.tar.xz -C /owl/usr/src<Enter>',
+    '!<Enter>tar -Jxvf /rom/world/sources/Owl/packages/kernel/linux-2.6.18.tar.xz -C /owl/usr/src<Enter>',
     '<Wait>' * 50,
     # Copy kernel patch
-    'cp /usr/src/world/sources/Owl/packages/kernel/p<Tab> /owl/usr/src<Enter>',
+    'cp /rom/world/sources/Owl/packages/kernel/p<Tab> /owl/usr/src<Enter>',
+    'cp /rom/world/native/Owl/packages/kernel/lin<Tab> /owl/usr/src<Enter>',
+    'cp /rom/world/native/Owl/packages/kernel/dot-config-i686 /owl/usr/src<Enter>',
     'exit<Enter>',
     'b<Enter><Enter>',				# Install kernel and bootloader
     'r<Enter>yes<Enter>', # + '<Wait>' * 30,		# Reboot
     #'root<Enter>vagrant<Enter>',		# Login
   ],
-  :virtualbox => { :vm_options => [{:natdnsproxy1 => 'on'}] },
+  :virtualbox => { :vm_options => [:natdnsproxy1 => 'on', :ioapic => 'on'] },
   :kickstart_port => "7122", :kickstart_timeout => 10000, :kickstart_file => "",
   :ssh_login_timeout => "10000", :ssh_user => "root", :ssh_password => "vagrant", :ssh_key => "",
   :ssh_host_port => "7222", :ssh_guest_port => "22",

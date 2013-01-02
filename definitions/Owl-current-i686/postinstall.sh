@@ -37,10 +37,11 @@ rm authorized_keys
 
 #Installing the virtualbox guest additions
 echo "Install virtualbox guest additions"
-cd /usr/src/
-unxz patch-308.11.1.el5.028stab102.1-combined.xz
-patch -p0 <patch-308.11.1.el5.028stab102.1-combined
-mv linux-2.6.18 linux
+cd /usr/src/linux-2.6.18
+xzcat ../patch-308.11.1.el5.028stab102.1-combined.xz | patch -p1 -T
+patch -p1 -Z < ../linux-2.6.18-308.11.1.e15.028stab102.1-owl.diff
+cp ../dot-config-i686 .config
+ln -s /usr/src/linux-2.6.18 /usr/src/linux
 cd /usr/src/linux
 yes "" | make oldconfig 
 yes "" | make prepare
